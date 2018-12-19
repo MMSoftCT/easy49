@@ -10,9 +10,7 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.event.ChangeListener;
 import Spieler.*;
-import java.awt.Color;
 import java.awt.Dimension;
-import java.util.ArrayList;
 import javax.swing.border.BevelBorder;
 
 /**
