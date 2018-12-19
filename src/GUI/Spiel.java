@@ -324,8 +324,6 @@ public class Spiel
         @Override
         public void actionPerformed(ActionEvent e)
         {
-            double old = main.getPlayer().getEINSATZ(); // save old Einsatz;
-
             // create Einsatz dialog
             JPanel pnl = new JPanel();
             pnl.setLayout(new BoxLayout(pnl, BoxLayout.PAGE_AXIS));
