@@ -33,6 +33,7 @@ import javax.swing.event.ChangeListener;
 public class Spiel
 {
     // class variables
+    private ArrayList<Benutzer> SPIELER;// list of all players
     private View main;                  // Hauptfenster
     private final LoginDialog login;    // the login
     private final TippDialog tipp;      // the tipp selection dialog
@@ -99,11 +100,11 @@ public class Spiel
     {
         for (int i = 0; i < count; i++)
         {
-            main.addSpieler(new Benutzer(String.valueOf(i), String.valueOf(i), new Date()));
-            main.getPlayer().setKONTOSTAND(50.0);
+            SPIELER.add(new Benutzer(String.valueOf(i), String.valueOf(i), new Date()));
+            SPIELER.get(i).setKONTOSTAND(50.0);
             //double eins = rand.nextInt(9) + rand.nextInt(9) / 10;
             //main.getPlayer().setEINSATZ(eins);
-            main.getPlayer().setTIPPREIHE(0, gen.zufallsZahlenAusgabe());
+            SPIELER.get(i).setTIPPREIHE(0, gen.zufallsZahlenAusgabe());
             //cash.einzahlung(eins);
             //main.setJackpott(cash.getBESTAND());
         }
@@ -194,10 +195,10 @@ public class Spiel
             // Gewinnzahlen ermitteln
             int[] gewinZ = gen.zufallsZahlenAusgabe();
 
-            ArrayList<Benutzer> users = main.getPlayers();
+            
             Benutzer current = main.getPlayer();
 
-            users.forEach((b) ->
+            SPIELER.forEach((b) ->
             {
                 // zufälligen einsatz und tipp für simulation setzen
                 if (b != current)
@@ -214,7 +215,7 @@ public class Spiel
             ArrayList<int[]> tippR;
 
             // gewinnreihen ermitteln
-            for (Benutzer b : users)
+            for (Benutzer b : SPIELER)
             {
                 tippR = b.getTIPPREIHEN();
                 for (int[] t : tippR)
@@ -251,7 +252,7 @@ public class Spiel
             cash.setGEWINNFAKTOR(faktor);
 
             // gewinne auszahlen
-            users.forEach((b) ->
+            SPIELER.forEach((b) ->
             {
                 if (b != current)
                 {
@@ -518,7 +519,7 @@ public class Spiel
             if (checkAlter(gdate))
             {
                 login.setVisible(false);
-                main.addSpieler(new Benutzer(login.getNachname(), login.getVorname(), login.getDatum().getTime()));
+                SPIELER.add(new Benutzer(login.getNachname(), login.getVorname(), login.getDatum().getTime()));
                 login.dispose();
                 main.setJackpott(cash.getBESTAND() + cash.getSICHERUNGSBESTAND());
                 main.setVisible(true);

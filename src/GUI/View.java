@@ -50,8 +50,8 @@ public class View extends JFrame
     private TippReihe[] tipps;
     
     // internal fields
-    private ArrayList<Benutzer> SPIELER;
-    private int currentPlayer;
+    private Benutzer SPIELER;
+    private int players;
     private int tippreihenCount;
 
     /**
@@ -69,8 +69,7 @@ public class View extends JFrame
      */
     private void initComponents()
     {
-        SPIELER = new ArrayList<Benutzer>();
-        currentPlayer = -1;
+        SPIELER = new Benutzer();
         tippreihenCount = 0;
         
         // create Tippreihe array
@@ -583,13 +582,10 @@ public class View extends JFrame
      *
      * @param nr index of the current player
      */
-    public void setPlayer(int nr)
+    public void setPlayerCount(int nr)
     {
-        if (nr < SPIELER.size())
-        {
-            currentPlayer = nr;
-            UpdateUI();
-        }
+        players = nr;
+        UpdateUI();
     }
 
     /**
@@ -598,20 +594,6 @@ public class View extends JFrame
      * @return Benutzer object
      */
     public Benutzer getPlayer()
-    {
-        if (currentPlayer >= 0)
-        {
-            return SPIELER.get(currentPlayer);
-        }
-        return null;
-    }
-
-    /**
-     * return arraylist of current users
-     *
-     * @return list of users
-     */
-    public ArrayList<Benutzer> getPlayers()
     {
         return SPIELER;
     }
@@ -631,12 +613,9 @@ public class View extends JFrame
      *
      * @param benutzer new player
      */
-    public void addSpieler(Benutzer benutzer)
+    public void setSpieler(Benutzer benutzer)
     {
-        SPIELER.add(benutzer);
-        currentPlayer = SPIELER.indexOf(benutzer);
-        playerCount.setText("Aktuelle Spieleranzahl: " + SPIELER.size());
-        UpdateUI();
+        SPIELER = benutzer;
     }
 
     // UI related methodes
@@ -683,7 +662,7 @@ public class View extends JFrame
                 }
             }
         }
-        // playerCount.setText("Aktuelle Spieler: " + SPIELER.size());
+        playerCount.setText("Aktuelle Spieler: " + players);
         
     }
 
