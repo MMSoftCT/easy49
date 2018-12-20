@@ -560,7 +560,7 @@ public class View extends JFrame
     {
         if (nr > 0 && nr < 5)
         {
-            tipps[nr].isEnabled();
+            return tipps[nr].isEnabled();
         }
         return false;
     }
